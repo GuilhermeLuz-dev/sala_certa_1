@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700&display=swap");
 
 .container {
   display: flex;
@@ -6,10 +6,10 @@
   align-items: center;
   justify-content: space-between;
   min-height: 100vh;
-  background-color: #FFFCF8;
+  background-color: #fffcf8;
   padding: 40px 20px;
   position: relative;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .alertToast {
@@ -18,7 +18,7 @@
   left: 50%;
   width: 300px;
   transform: translateX(-50%);
-  background-color: #D32F2F;
+  background-color: #d32f2f;
   color: white;
   padding: 12px 24px;
   border-radius: 50px;
@@ -27,7 +27,7 @@
   align-items: center;
   gap: 10px;
   z-index: 1000;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 500;
   font-size: 0.95rem;
   animation: slideInDown 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
@@ -83,7 +83,7 @@
 }
 
 .saudacao {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.1rem;
   font-weight: 400;
   color: #555;
@@ -91,7 +91,7 @@
 }
 
 .pergunta {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.4rem;
   font-weight: 600;
   color: #000;
@@ -115,15 +115,14 @@
   background-color: white;
   padding: 15px 20px;
   border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
   transition: all 0.2s;
   border: 1px solid transparent;
-
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .dropdownTrigger:hover {
@@ -131,7 +130,7 @@
 }
 
 .dropdownTrigger.active {
-  border-color: #FFB300;
+  border-color: #ffb300;
 }
 
 .triggerContent {
@@ -142,14 +141,14 @@
 }
 
 .textoTrigger {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.95rem;
   font-weight: 400;
   color: #aaa;
 }
 
 .textoSelecionado {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 1rem;
   font-weight: 500;
   color: #333;
@@ -157,7 +156,7 @@
 
 .chevron {
   transition: transform 0.3s ease;
-  color: #FFB300;
+  color: #ffb300;
   flex-shrink: 0;
 }
 
@@ -172,7 +171,7 @@
   width: 100%;
   background-color: white;
   border-radius: 15px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
   padding: 8px 0;
   z-index: 100;
   animation: slideDown 0.2s ease-out;
@@ -181,8 +180,14 @@
 }
 
 @keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dropdownItem {
@@ -190,7 +195,7 @@
   cursor: pointer;
   color: #333;
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.95rem;
   font-weight: 400;
 
@@ -201,7 +206,7 @@
 }
 
 .dropdownItem:hover {
-  background-color: #FFF8E1;
+  background-color: #fff8e1;
 }
 
 .fadeIn {
@@ -209,15 +214,21 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .btnLocalizar {
-  background-color: #FFB300;
+  background-color: #ffb300;
   color: #000;
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 600;
   font-size: 1rem;
 
