@@ -8,6 +8,7 @@ import logoFlxche from "../../assets/flxche.png";
 import { steps } from "../../Repositories/steps";
 import { rotas } from "../../Repositories/rotas";
 import Loading from "../../components/Loading";
+import RouteNotFound from "../../components/RouteNotFound";
 
 export function Rota() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export function Rota() {
   const [showSalvarAlert, setShowSalvarAlert] = useState(false);
   const [stepsRoute, setStepsRoute] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [routeExisting, setRouteExisting] = useState(true);
 
   const isAuthenticated = localStorage.getItem("usuario_logado") === "true";
 
@@ -41,6 +43,7 @@ export function Rota() {
       const StepsRoute = await steps.listByArrayIds(data[0].steps);
       setStepsRoute(StepsRoute);
       setIsLoading(false);
+      if (StepsRoute.length === 0) setRouteExisting(false);
     }
     fetchData();
   }, []);
@@ -94,134 +97,144 @@ export function Rota() {
       {isLoading ? (
         <Loading />
       ) : (
-        <div className={styles.container}>
-          {showChegouAlert && (
-            <div className={styles.overlay}>
-              <div className={styles.modal}>
-                <h2 className={styles.modalTitulo}>
-                  Você chegou até sua sala (
-                  {stepsRoute[totalPassos - 1].description.split(": ")[1]})?
-                </h2>
-                <div className={styles.modalBotoes}>
-                  <button
-                    className={`${styles.btnModal} ${styles.btnAmarelo}`}
-                    onClick={handleChegouSim}
-                  >
-                    Sim
-                  </button>
-                  <button
-                    className={`${styles.btnModal} ${styles.btnPreto}`}
-                    onClick={handleChegouNao}
-                  >
-                    Não
-                  </button>
+        <>
+          {!routeExisting ? (
+            <RouteNotFound />
+          ) : (
+            <div className={styles.container}>
+              {showChegouAlert && (
+                <div className={styles.overlay}>
+                  <div className={styles.modal}>
+                    <h2 className={styles.modalTitulo}>
+                      Você chegou até sua sala (
+                      {stepsRoute[totalPassos - 1].description.split(": ")[1]})?
+                    </h2>
+                    <div className={styles.modalBotoes}>
+                      <button
+                        className={`${styles.btnModal} ${styles.btnAmarelo}`}
+                        onClick={handleChegouSim}
+                      >
+                        Sim
+                      </button>
+                      <button
+                        className={`${styles.btnModal} ${styles.btnPreto}`}
+                        onClick={handleChegouNao}
+                      >
+                        Não
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {showSalvarAlert && (
+                <div className={styles.overlay}>
+                  <div className={styles.modal}>
+                    <h2 className={styles.modalTitulo}>
+                      Deseja salvar esta sala como favorita?
+                    </h2>
+
+                    <div className={styles.modalBotoes}>
+                      <button
+                        className={`${styles.btnModal} ${styles.btnAmarelo}`}
+                        onClick={handleSalvarSim}
+                      >
+                        Sim
+                      </button>
+                      <button
+                        className={`${styles.btnModal} ${styles.btnPreto}`}
+                        onClick={handleSalvarNao}
+                      >
+                        Não
+                      </button>
+                    </div>
+
+                    <p className={styles.modalSubtitulo}>
+                      Ao salvar como favorito, você pode acessar o trajeto
+                      novamente pelo seu perfil.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              <div className={styles.header}>
+                <button
+                  className={styles.btnVoltar}
+                  onClick={handleVoltar}
+                  aria-label="Voltar para a tela anterior"
+                >
+                  <ChevronLeft size={24} />
+                  Voltar
+                </button>
+
+                <img
+                  src={logoSalaCerta}
+                  alt="Logo Sala Certa"
+                  className={styles.headerLogo}
+                />
+
+                <button
+                  onClick={() => navigate("/favoritos")}
+                  className={styles.btnPerfil}
+                  aria-label="Ir para Favoritos"
+                >
+                  <User size={24} />
+                </button>
+              </div>
+
+              <div className={styles.cardContainer}>
+                <div className={styles.imageWrapper}>
+                  <img
+                    src={stepsRoute[passoAtual].image}
+                    alt={`Passo ${passoAtual + 1}: ${stepsRoute[passoAtual].description}`}
+                    className={styles.imagemPasso}
+                  />
+                  {passoAtual > 0 && (
+                    <button
+                      className={`${styles.btnNav} ${styles.btnAnterior}`}
+                      onClick={handleAnterior}
+                      aria-label="Passo anterior"
+                    >
+                      <ChevronLeft size={28} />
+                    </button>
+                  )}
+
+                  {passoAtual < totalPassos - 1 && (
+                    <button
+                      className={`${styles.btnNav} ${styles.btnProximo}`}
+                      onClick={handleProximo}
+                      aria-label="Próximo passo"
+                    >
+                      <ChevronRight size={28} />
+                    </button>
+                  )}
+                </div>
+
+                <div className={styles.instrucaoBox}>
+                  <p className={styles.instrucaoTexto}>
+                    {stepsRoute[passoAtual].description}
+                  </p>
                 </div>
               </div>
-            </div>
-          )}
-
-          {showSalvarAlert && (
-            <div className={styles.overlay}>
-              <div className={styles.modal}>
-                <h2 className={styles.modalTitulo}>
-                  Deseja salvar esta sala como favorita?
-                </h2>
-
-                <div className={styles.modalBotoes}>
-                  <button
-                    className={`${styles.btnModal} ${styles.btnAmarelo}`}
-                    onClick={handleSalvarSim}
-                  >
-                    Sim
-                  </button>
-                  <button
-                    className={`${styles.btnModal} ${styles.btnPreto}`}
-                    onClick={handleSalvarNao}
-                  >
-                    Não
-                  </button>
-                </div>
-
-                <p className={styles.modalSubtitulo}>
-                  Ao salvar como favorito, você pode acessar o trajeto novamente
-                  pelo seu perfil.
-                </p>
+              <div className={styles.paginacao}>
+                {stepsRoute.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`${styles.dot} ${index === passoAtual ? styles.active : ""}`}
+                    role="status"
+                    aria-current={index === passoAtual ? "step" : undefined}
+                  />
+                ))}
               </div>
-            </div>
-          )}
 
-          <div className={styles.header}>
-            <button
-              className={styles.btnVoltar}
-              onClick={handleVoltar}
-              aria-label="Voltar para a tela anterior"
-            >
-              <ChevronLeft size={24} />
-              Voltar
-            </button>
-
-            <img
-              src={logoSalaCerta}
-              alt="Logo Sala Certa"
-              className={styles.headerLogo}
-            />
-
-            <button
-              onClick={() => navigate("/favoritos")}
-              className={styles.btnPerfil}
-              aria-label="Ir para Favoritos"
-            >
-              <User size={24} />
-            </button>
-          </div>
-
-          <div className={styles.cardContainer}>
-            <div className={styles.imageWrapper}>
               <img
-                src={stepsRoute[passoAtual].image}
-                alt={`Passo ${passoAtual + 1}: ${stepsRoute[passoAtual].description}`}
-                className={styles.imagemPasso}
+                src={logoFlxche}
+                alt="Flxche"
+                className={styles.footerLogo}
               />
-              {passoAtual > 0 && (
-                <button
-                  className={`${styles.btnNav} ${styles.btnAnterior}`}
-                  onClick={handleAnterior}
-                  aria-label="Passo anterior"
-                >
-                  <ChevronLeft size={28} />
-                </button>
-              )}
-
-              {passoAtual < totalPassos - 1 && (
-                <button
-                  className={`${styles.btnNav} ${styles.btnProximo}`}
-                  onClick={handleProximo}
-                  aria-label="Próximo passo"
-                >
-                  <ChevronRight size={28} />
-                </button>
-              )}
             </div>
-
-            <div className={styles.instrucaoBox}>
-              <p className={styles.instrucaoTexto}>
-                {stepsRoute[passoAtual].description}
-              </p>
-            </div>
-          </div>
-          <div className={styles.paginacao}>
-            {stepsRoute.map((_, index) => (
-              <div
-                key={index}
-                className={`${styles.dot} ${index === passoAtual ? styles.active : ""}`}
-                role="status"
-                aria-current={index === passoAtual ? "step" : undefined}
-              />
-            ))}
-          </div>
-
-          <img src={logoFlxche} alt="Flxche" className={styles.footerLogo} />
-        </div>
+          )}
+        </>
       )}
     </>
   );
