@@ -8,6 +8,7 @@ import { Cadastro } from "./pages/Cadastro";
 import { Home } from "./pages/Home";
 import { Rota } from "./pages/Rota";
 import { Favoritos } from "./pages/Favoritos";
+import SearchResults from "./pages/SearchResults";
 
 const isAuthenticated = true; // Simulação da sua variável de autenticação
 
@@ -20,26 +21,24 @@ function App() {
     <BrowserRouter>
       {" "}
       <Routes>
-                {/* Rotas Públicas */}
-                <Route path="/" element={<Splash />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/calouro" element={<Calouro />} />
-                <Route path="/cadastro" element={<Cadastro />} />       {" "}
+        {/* Rotas Públicas */}
+        <Route path="/" element={<Splash />} />
+        <Route path="/calouro" element={<Calouro />} />
+        <Route path="/cadastro" element={<Cadastro />} />{" "}
         {/* Rotas Principais */}
-                <Route path="/busca" element={<Home />} />
-                <Route path="/rota/:destinoId" element={<Rota />} />       {" "}
-        {/* Rotas Protegidas */}       {" "}
+        <Route path="/busca" element={<Home />} />
+        <Route path="/results/:destinoSel" element={<SearchResults />} />
+        <Route path="/rota/:destinoId" element={<Rota />} />{" "}
+        {/* Rotas Protegidas */}{" "}
         <Route
           path="/favoritos"
           element={
             <PrivateRoute>
-                            <Favoritos />           {" "}
+              <Favoritos />{" "}
             </PrivateRoute>
           }
-        />
-             {" "}
-      </Routes>
-         {" "}
+        />{" "}
+      </Routes>{" "}
     </BrowserRouter>
   );
 }

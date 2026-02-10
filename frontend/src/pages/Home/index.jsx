@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ChevronDown,
@@ -12,84 +12,52 @@ import styles from "./Home.module.css";
 
 import logoSalaCerta from "../../assets/sc.png";
 import logoFlxche from "../../assets/flxche.png";
-import { itemRepository } from "../../Repositories/steps";
+import { rotas } from "../../Repositories/rotas";
+import { faculdades } from "../../Repositories/faculdades";
 
 const MOCK_FACULDADES = [
   { id: "unex", nome: "UNEX", temMapa: true },
   { id: "fainor", icon: "alert", nome: "FAINOR", temMapa: false },
 ];
 
-const MOCK_PONTOS_ORIGEM = [
-  { id: "portaria", nome: "Portaria Principal" },
-  { id: "biblioteca", nome: "Biblioteca" },
-  { id: "estacionamento", nome: "Estacionamento" },
-];
-
-const MOCK_PONTOS_DESTINO = [
-  { id: "sala101", nome: "Sala 101 - Módulo 1" },
-  { id: "lab_info", nome: "Laboratório de Informática" },
-  { id: "coord", nome: "Coordenação" },
-];
-
 export function Home() {
-  const navigate = useNavigate();
   // const location = useLocation();
-  const [faculdadeSel, setFaculdadeSel] = useState(null);
   // const [origemSel, setOrigemSel] = useState(null);
+  // const [text, setText] = useState("");
+  const navigate = useNavigate();
+  const [faculdadeSel, setFaculdadeSel] = useState(null);
   const [destinoSel, setDestinoSel] = useState(null);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [showToast, setShowToast] = useState(false);
-  // const [text, setText] = useState("");
+  const [universitys, setUniversityes] = useState([]);
 
   useEffect(() => {
-    async function carregarDados() {
-      try {
-        const dados = await itemRepository.listarTodos();
-        console.log(dados || []);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    carregarDados();
+    const getUniversitys = async () => {
+      const data = await faculdades.listAll();
+      setUniversityes(data);
+      setFaculdadeSel({ id: 1, name: "Unex" });
+    };
+    getUniversitys();
   }, []);
 
   function toggleDropdown(nome) {
     setActiveDropdown((prev) => (prev === nome ? null : nome));
   }
 
-  function triggerToast() {
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 3000);
-  }
-
   function handleSelectFaculdade(item) {
     setFaculdadeSel(item);
-    // setOrigemSel(null);
     setDestinoSel(null);
     setActiveDropdown(null);
-
-    if (item.temMapa === false) {
-      triggerToast();
-    }
   }
 
-  function handleLocalizar() {
-    if (faculdadeSel && faculdadeSel.temMapa && destinoSel) {
-      console.log(destinoSel);
-    } else if (faculdadeSel && !faculdadeSel.temMapa) {
-      triggerToast();
+  async function handleLocalizar() {
+    if (faculdadeSel != null && destinoSel) {
+      navigate(`/results/${destinoSel}`);
     }
   }
 
   const nomeUsuario = localStorage.getItem("usuario_nome") || "Aluno";
   const textoBotao =
-    faculdadeSel && !faculdadeSel.temMapa
-      ? "Mapa Indisponível"
-      : "Localizar Sala";
-
-  // const isButtonDisabled =
-  //   !faculdadeSel || (faculdadeSel.temMapa && (!origemSel || !destinoSel));
+    faculdadeSel == null ? "Mapa Indisponível" : "Localizar Sala";
 
   const handleSearch = (event) => {
     setDestinoSel(event.target.value);
@@ -97,13 +65,6 @@ export function Home() {
 
   return (
     <div className={styles.container}>
-      {showToast && (
-        <div className={styles.alertToast}>
-          <AlertCircle size={20} color="white" />
-          <span>Mapa indisponível no momento.</span>
-        </div>
-      )}
-
       <div className={styles.header}>
         <div style={{ width: "24px" }}></div>
 
@@ -143,7 +104,7 @@ export function Home() {
                   style={{ display: "flex", alignItems: "center", gap: "8px" }}
                 >
                   <span className={styles.textoSelecionado}>
-                    {faculdadeSel.nome}
+                    {faculdadeSel.name}
                   </span>
                   {faculdadeSel.icon === "alert" && (
                     <AlertCircle
@@ -169,7 +130,7 @@ export function Home() {
 
           {activeDropdown === "faculdade" && (
             <div className={styles.dropdownLista} role="listbox">
-              {MOCK_FACULDADES.map((item) => (
+              {universitys.map((item) => (
                 <div
                   key={item.id}
                   className={styles.dropdownItem}
@@ -184,10 +145,7 @@ export function Home() {
                       gap: "8px",
                     }}
                   >
-                    {item.nome}
-                    {item.icon === "alert" && (
-                      <AlertCircle size={16} color="#d32f2f" />
-                    )}
+                    {item.name}
                   </div>
                   {faculdadeSel?.id === item.id && (
                     <Check size={16} color="#FFB300" />
@@ -198,13 +156,11 @@ export function Home() {
           )}
         </div>
 
-        {faculdadeSel?.temMapa && (
+        {faculdadeSel != null && (
           <>
             <div className={`${styles.dropdownContainer} ${styles.fadeIn}`}>
               <div
-                className={`${styles.dropdownTrigger} ${
-                  activeDropdown === "destino" ? styles.active : ""
-                }`}
+                className={`${styles.dropdownTrigger}`}
                 onClick={() => toggleDropdown("destino")}
                 aria-expanded={activeDropdown === "destino"}
               >

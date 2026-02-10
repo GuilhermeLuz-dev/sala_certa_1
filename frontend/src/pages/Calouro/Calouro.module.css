@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700&display=swap");
 
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  background-color: #FFFCF8;
+  background-color: #fffcf8;
   padding: 40px 20px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .headerLogo {
@@ -24,7 +24,7 @@
 }
 
 .card {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   width: 100%;
   max-width: 400px;
   padding: 40px 30px;
@@ -37,7 +37,7 @@
 }
 
 .titulo {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 1rem;
   font-weight: 600;
   color: #111;
@@ -45,7 +45,7 @@
 }
 
 .subtitulo {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.8rem;
   font-weight: 400;
   color: #777;
@@ -62,11 +62,10 @@
 .input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #FFC107;
+  border: 1px solid #ffc107;
   border-radius: 12px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.75rem;
-  font-weight: 100;
   outline: none;
   background-color: white;
   transition: box-shadow 0.2s;
@@ -79,9 +78,9 @@
 .btnEntrar {
   width: 100%;
   padding: 10px;
-  background-color: #FFB300;
+  background-color: #ffb300;
   color: #000;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 600;
   font-size: 0.85rem;
   border: none;
@@ -103,14 +102,14 @@
 }
 
 .textoCadastro {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.85rem;
   font-weight: 400;
   color: #555;
 }
 
 .linkCadastro {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 600;
   color: #000;
   cursor: pointer;
