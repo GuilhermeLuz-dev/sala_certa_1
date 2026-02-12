@@ -9,6 +9,7 @@ import { Home } from "./pages/Home";
 import { Rota } from "./pages/Rota";
 import { Favoritos } from "./pages/Favoritos";
 import SearchResults from "./pages/SearchResults";
+import Admin from "./pages/Admin";
 
 const isAuthenticated = true; // Simulação da sua variável de autenticação
 
@@ -23,13 +24,12 @@ function App() {
       <Routes>
         {/* Rotas Públicas */}
         <Route path="/" element={<Splash />} />
-        <Route path="/calouro" element={<Calouro />} />
-        <Route path="/cadastro" element={<Cadastro />} />{" "}
         {/* Rotas Principais */}
         <Route path="/busca" element={<Home />} />
         <Route path="/results/:destinoSel" element={<SearchResults />} />
         <Route path="/rota/:destinoId" element={<Rota />} />{" "}
-        {/* Rotas Protegidas */}{" "}
+        {/* Rotas Protegidas */}
+        <Route path="/admin" element={<Admin />} />
         <Route
           path="/favoritos"
           element={

@@ -73,14 +73,6 @@ export function Home() {
           alt="Logo Sala Certa"
           className={styles.headerLogo}
         />
-
-        <button
-          className={styles.btnPerfil}
-          onClick={() => navigate("/favoritos")}
-          aria-label="Ir para Favoritos"
-        >
-          <User size={28} color="#333" />
-        </button>
       </div>
 
       <div className={styles.textos}>

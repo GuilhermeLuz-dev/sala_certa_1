@@ -12,7 +12,7 @@ export function Splash() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate("/calouro");
+      navigate("/busca");
     }, 8000); // 8 segundos
 
     return () => clearTimeout(timer);
