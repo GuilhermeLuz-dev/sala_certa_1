@@ -22,4 +22,13 @@ export const steps = {
     if (error) throw error;
     return data;
   },
+
+  async listByDescription(description: string) {
+    const data = await supabase
+      .from("steps")
+      .select("*")
+      .ilike("description", `%${description}%`);
+
+    return data;
+  },
 };

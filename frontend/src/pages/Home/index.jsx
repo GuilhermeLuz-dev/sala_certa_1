@@ -12,7 +12,6 @@ import styles from "./Home.module.css";
 
 import logoSalaCerta from "../../assets/sc.png";
 import logoFlxche from "../../assets/flxche.png";
-import { rotas } from "../../Repositories/rotas";
 import { faculdades } from "../../Repositories/faculdades";
 
 const MOCK_FACULDADES = [
