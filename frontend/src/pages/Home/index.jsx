@@ -54,7 +54,6 @@ export function Home() {
     }
   }
 
-  const nomeUsuario = localStorage.getItem("usuario_nome") || "Aluno";
   const textoBotao =
     faculdadeSel == null ? "Mapa Indisponível" : "Localizar Sala";
 
@@ -75,8 +74,8 @@ export function Home() {
       </div>
 
       <div className={styles.textos}>
-        <p className={styles.saudacao}>Olá, {nomeUsuario}!</p>
-        <h2 className={styles.pergunta}>Onde você está?</h2>
+        <p className={styles.saudacao}>Olá!</p>
+        <h2 className={styles.pergunta}>Onde deseja ir?</h2>
       </div>
 
       <div className={styles.formContainer}>
