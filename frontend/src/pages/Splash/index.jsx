@@ -24,15 +24,19 @@ export function Splash() {
         className={styles.logoContainer}
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
       >
         <video
           src={videoSalaCerta}
           className={styles.logo}
+          poster={logoFlxche}
           autoPlay
           muted
           playsInline
           loop
+          disablePictureInPicture
+          controls={false}
+          onContextMenu={(e) => e.preventDefault()}
         />
       </motion.div>
 
